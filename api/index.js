@@ -11,3 +11,7 @@ app.post('/register', (req, res) => {
 })
 
 app.listen(4000)
+
+//NmlwvZsMBbiSIWmt
+
+//mongodb+srv://random:NmlwvZsMBbiSIWmt@cluster0.8i8ngw9.mongodb.net/?retryWrites=true&w=majority
