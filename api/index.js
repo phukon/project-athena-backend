@@ -5,14 +5,18 @@ const { default: mongoose } = require('mongoose');
 const User = require('./models/User')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 
 
 
 const secret = 'dnwe923hfun403no';
 const salt = bcrypt.genSaltSync(10);
 
+
 app.use(cors({credentials:true, origin:'http://localhost:3000'}))
 app.use(express.json())
+app.use(cookieParser())
+
 
 mongoose.connect('mongodb+srv://random:NmlwvZsMBbiSIWmt@cluster0.8i8ngw9.mongodb.net/?retryWrites=true&w=majority')
 
@@ -37,6 +41,14 @@ app.post('/login', async(req, res) => {
     } else {
         res.status(400).json({error:'Wrong password'})
     }
+})
+
+app.get('/profile', (req, res) => {
+    const {token} = req.cookies;
+    jwt.verify(token, secret, {}, (err, info) => {
+        if (err) throw err;
+        res.json(info);
+    })
 })
 
 app.listen(4000)
