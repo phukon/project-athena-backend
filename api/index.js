@@ -6,6 +6,9 @@ const User = require('./models/User')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
+const uploaMiddleware = multer({dest: 'uploads/'});
+const fs = require('fs');
 
 
 
@@ -56,6 +59,15 @@ app.get('/profile', (req, res) => {
 
 app.post('/logout', (req, res) => {
     res.cookie('token', '').json('ok');
+})
+
+app.post('/post', uploaMiddleware.single('file'), (req, res) => {
+    const {originalname, path} = req.file;
+    const parts = originalname.split('.');
+    const ext = parts[parts.length - 1]
+    const newPath = path + '.' + ext;
+    fs.renameSync(path, newPath)
+    res.json({ext})
 })
 
 app.listen(4000)
