@@ -13,7 +13,7 @@ const fs = require('fs');
 
 
 
-const secret = 'dnwe923hfun403no';
+const secret = 'XXXXXXXXXXXXXXXXX';
 const salt = bcrypt.genSaltSync(10);
 
 
@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-mongoose.connect('mongodb+srv://random:NmlwvZsMBbiSIWmt@cluster0.8i8ngw9.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('XXXXXXXXXXXXXXXXX')
 
 app.post('/register', async(req, res) => {
     const {username, password} = req.body;
